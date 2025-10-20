@@ -1,0 +1,58 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Sales {
+    public static void main(String[] args) {
+        String filePath = "C:\\Users\\Lab User\\Desktop\\sales.txt";
+        try {
+            File myFile = new File(filePath);
+            Scanner fileToRead = new Scanner(myFile);
+            int totalA = 0;
+            int totalB = 0;
+            int totalC = 0;
+            int totalD = 0;
+            int total = 0;
+            if (fileToRead.hasNextLine()) {
+                fileToRead.nextLine();
+            }
+            while (fileToRead.hasNextLine()) {
+                String line = fileToRead.nextLine();
+                String[] fields = line.split("\t");
+                if (fields.length >= 6) {
+                    try {
+                        String product = fields[3];
+                        int qty = Integer.parseInt(fields[4]);
+                        int unitPrice = Integer.parseInt(fields[5]);
+                        int amount = qty * unitPrice;
+                        if (product.equals("Product A")) {
+                            totalA += amount;
+                        }
+                        if (product.equals("Product B")) {
+                            totalB += amount;
+                        }
+                        if (product.equals("Product C")) {
+                            totalC += amount;
+                        }
+                        if (product.equals("Product D")) {
+                            totalD += amount;
+                        }
+                        total += amount;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Skipping line due to number format error: " + line);
+                    }
+                } else {
+                    System.out.println("Skipping malformed line: " + line);
+                }
+            }
+            fileToRead.close();
+            System.out.println("Product A    " + totalA);
+            System.out.println("Product B    " + totalB);
+            System.out.println("Product C    " + totalC);
+            System.out.println("Product D    " + totalD);
+            System.out.println("Total sales for products: " + total);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + filePath);
+        }
+    }
+}
