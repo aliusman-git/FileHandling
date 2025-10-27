@@ -1,51 +1,43 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
-public class Sales {
+public class HashmapSales {
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\Lab User\\Desktop\\sales.txt";
+        String file = "E:\\Usman\\sales.txt";
         Map<String, Integer> productTotals = new HashMap<>();
         int grandTotal = 0;
-
         try {
-            File myFile = new File(filePath);
-            Scanner fileToRead = new Scanner(myFile);
-            if (fileToRead.hasNextLine()) {
-                fileToRead.nextLine();
-            }
-            while (fileToRead.hasNextLine()) {
-                String line = fileToRead.nextLine();
+            File f1 = new File(file);
+            Scanner s1 = new Scanner(f1);
+            if (s1.hasNextLine()) s1.nextLine();
+            while (s1.hasNextLine()) {
+                String line = s1.nextLine();
                 String[] fields = line.split("\t");
 
                 if (fields.length >= 6) {
                     try {
-                        String product = fields[3].trim(); // Product name
+                        String product = fields[3].trim();
                         int qty = Integer.parseInt(fields[4].trim());
                         int unitPrice = Integer.parseInt(fields[5].trim());
-                        int amount = qty * unitPrice;
-                        productTotals.put(product, productTotals.getOrDefault(product, 0) + amount);
+                        int lineTotal = qty * unitPrice;
 
-                        grandTotal += amount;
+                        productTotals.put(product, productTotals.getOrDefault(product, 0) + lineTotal);
+                        grandTotal += lineTotal;
                     } catch (NumberFormatException e) {
-                        System.out.println("Skipping line (invalid number): " + line);
+                        System.out.println("Invalid number in line: " + line);
                     }
                 } else {
-                    System.out.println("Skipping malformed line: " + line);
+                    System.out.println("Skipping line: " + line);
                 }
             }
-
-            fileToRead.close();
-            for (Map.Entry<String, Integer> entry : productTotals.entrySet()) {
-                System.out.println(entry.getKey() + " : " + entry.getValue());
+            s1.close();
+            for (String product : productTotals.keySet()) {
+                System.out.println(product + " : " + productTotals.get(product));
             }
+            System.out.println("Grand Total is: " + grandTotal);
 
-            System.out.println("Grand Total: " + grandTotal);
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + filePath);
+        } catch (IOException e) {
+            System.out.println("File not found");
         }
     }
 }
