@@ -1,0 +1,35 @@
+import java.io.*;
+
+public class Stream {
+    public static void main(String[] args) throws Exception {
+            //Byte by Byte 
+        /*        FileInputStream inputStream=null;
+        FileOutputStream outputStream=null;
+    try{
+        inputStream =new FileInputStream("E:\\USMAN\\Sample.txt");
+        outputStream =new FileOutputStream("E:\\USMAN\\NewSample.txt");
+        int content;
+        while((content=inputStream.read())!=-1){
+        outputStream.write((byte) content);
+        }
+    }finally {
+        if (inputStream!=null)inputStream.close();
+        if (outputStream!=null)
+    }*/
+                    //char by char 
+        /*FileReader reader=null;
+    FileWriter writer=null;
+    try {
+        reader=new FileReader("E:\\USMAN\\Sample.txt");
+        writer=new FileWriter("E:\\USMAN\\NewSample.txt");
+        int content;
+        content=reader.read();
+        while(content!=1) {
+            writer.write((char) content);
+        }
+    }finally {
+        if (reader != null)reader.close();
+        if (writer!=null)writer.close();
+    }*/
+    }
+}
